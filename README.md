@@ -9,6 +9,7 @@ when the skill is loaded.
 | Skill | Invoke with | What it does |
 | --- | --- | --- |
 | [jira](skills/jira/) | `/jira` | Create, edit, comment on, assign, transition, link, search and summarize Jira issues; manage sprints; break features into stories |
+| [no-ai-slop](skills/no-ai-slop/) | automatic, or `/no-ai-slop` | Edit drafts into sharper, more human writing in the writer's own voice, or flag AI-slop patterns without rewriting |
 
 ## Installing a skill in Claude
 
