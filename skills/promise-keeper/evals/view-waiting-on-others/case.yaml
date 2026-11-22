@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: view-waiting-on-others
+expected_outcome: |
+  Only the Waiting on others view: Alex (promised approval, quiet since Mar 2) then Jordan (unanswered, quiet since Mar 10, followed up 3 times), with days quiet.
+context:
+  scaffold_script: place-files.sh

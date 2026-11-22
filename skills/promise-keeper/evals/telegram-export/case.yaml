@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: telegram-export
+expected_outcome: |
+  Reads only Jamie's messages as promises: the overdue apartment checklist and bringing the speaker Saturday. Taylor's cabin booking is a waiting item. 'We should hang more' is a pleasantry.
+context:
+  scaffold_script: place-files.sh

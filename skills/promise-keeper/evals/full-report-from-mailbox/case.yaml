@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: full-report-from-mailbox
+expected_outcome: |
+  A full report ordered by urgency. Open promises (Priya's deck, Leo's review, Ravi's rubric, Chloe's proposal, Marcus, Dana, the expense report) are found; kept ones (Omar's notes, Ben's pricing sheet) are marked done; pleasantries, unaccepted offers, same-message completions, other people's promises, automated mail and newsletters are left out. Asked-of-you and waiting-on-others sections appear. A ledger is written and a scheduled task is offered once. Nothing is sent.
+context:
+  scaffold_script: place-files.sh

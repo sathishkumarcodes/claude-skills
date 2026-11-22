@@ -1,0 +1,104 @@
+{
+  "today": "2026-03-13 (Fri)",
+  "user": "jamie@acme.example",
+  "mailbox_threads": {
+    "t01": {
+      "subject": "Q1 budget deck",
+      "expected": "PROMISE open, stated due Fri Mar 6, overdue 7 days"
+    },
+    "t02": {
+      "subject": "Vendor contract clause 7",
+      "expected": "PROMISE open, soft, inferred due Mon Mar 16"
+    },
+    "t03": {
+      "subject": "Meeting your design team",
+      "expected": "PROMISE open, no time, inferred due Mon Mar 16"
+    },
+    "t04": {
+      "subject": "Notes from the sync",
+      "expected": "PROMISE done (notes attached Mar 4, thanked)"
+    },
+    "t05": {
+      "subject": "Offsite",
+      "expected": "PROMISE probably done (phone call, 'as discussed' next day)"
+    },
+    "t06": {
+      "subject": "Great meeting you",
+      "expected": "PLEASANTRY: exclude or low confidence only"
+    },
+    "t07": {
+      "subject": "FAQ",
+      "expected": "CONDITIONAL offer, never accepted: exclude"
+    },
+    "t08": {
+      "subject": "Hiring rubric",
+      "expected": "CONDITIONAL offer accepted: PROMISE open, inferred due ~Mar 12-13"
+    },
+    "t09": {
+      "subject": "Onboarding doc review",
+      "expected": "ACCEPTED ASK: PROMISE open, stated due Wed Mar 11, overdue 2 days, chased -> urgent"
+    },
+    "t10": {
+      "subject": "NDA",
+      "expected": "DONE IN SAME MESSAGE: exclude"
+    },
+    "t11": {
+      "subject": "Pricing sheet",
+      "expected": "PROMISE done; 'Friday' sent on Fri Feb 27 resolves to Fri Mar 6; delivered Mar 6"
+    },
+    "t12": {
+      "subject": "Draft proposal",
+      "expected": "PROMISE open; 'next week' from Wed Mar 4 = Fri Mar 13; restated Mar 11 'by Monday' -> one item due Mon Mar 16"
+    },
+    "t13": {
+      "subject": "Expenses",
+      "expected": "PROMISE open; 'end of month' from Mar 3 = Tue Mar 31"
+    },
+    "t14": {
+      "subject": "Contract signature",
+      "expected": "WAITING: Jordan, last user msg Mar 10 (3 days quiet), 3 follow-ups -> flag"
+    },
+    "t15": {
+      "subject": "Expense approval",
+      "expected": "WAITING: Alex promised approval by Wed Mar 4, since Mar 2 (11 days)"
+    },
+    "t16": {
+      "subject": "Q4 numbers",
+      "expected": "ANSWERED question: not waiting"
+    },
+    "t17": {
+      "subject": "Headcount numbers",
+      "expected": "ASKED OF YOU, ASAP -> urgent"
+    },
+    "t18": {
+      "subject": "Phone screen confirmed",
+      "expected": "ASKED OF YOU, event within 48h -> urgent"
+    },
+    "t19": {
+      "subject": "Vendor survey notes",
+      "expected": "ASKED OF YOU, stated due next week (Fri Mar 20), NOT urgent"
+    },
+    "t20": {
+      "subject": "Room booking",
+      "expected": "ASKED and ANSWERED: exclude"
+    },
+    "t21": {
+      "subject": "Thanks for the demo",
+      "expected": "RHETORICAL: exclude"
+    },
+    "t22": {
+      "subject": "Action required: confirm your email",
+      "expected": "AUTOMATED: skip"
+    },
+    "t23": {
+      "subject": "The Weekly Brief",
+      "expected": "NEWSLETTER: skip"
+    },
+    "t24": {
+      "subject": "Slides for Marcus",
+      "expected": "SOMEONE ELSE'S promise to someone else (user cc'd): exclude"
+    }
+  },
+  "standup": "Jamie: update the roadmap doc by Thursday -> open, due Thu Mar 12, overdue 1 day",
+  "telegram": "checklist overdue (Mar 11); speaker due Sat Mar 14; cabin = waiting on Taylor; 'hang more' = pleasantry"
+}

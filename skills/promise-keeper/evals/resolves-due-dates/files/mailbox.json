@@ -1,0 +1,416 @@
+{
+  "account": "jamie@acme.example",
+  "threads": [
+    {
+      "id": "t01",
+      "subject": "Q1 budget deck",
+      "messages": [
+        {
+          "from": "priya@acme.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-02T10:00:00-08:00",
+          "body": "Hi Jamie, can you share the Q1 budget deck before board prep?"
+        },
+        {
+          "from": "jamie@acme.example",
+          "to": "priya@acme.example",
+          "date": "2026-03-02T10:30:00-08:00",
+          "body": "Sure, I'll send it over by Friday."
+        }
+      ]
+    },
+    {
+      "id": "t02",
+      "subject": "Vendor contract clause 7",
+      "messages": [
+        {
+          "from": "marcus@vendorco.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-12T09:15:00-08:00",
+          "body": "Is clause 7 on liability OK with your legal team?"
+        },
+        {
+          "from": "jamie@acme.example",
+          "to": "marcus@vendorco.example",
+          "date": "2026-03-12T11:00:00-08:00",
+          "body": "Let me check with legal and get back to you."
+        }
+      ]
+    },
+    {
+      "id": "t03",
+      "subject": "Meeting your design team",
+      "messages": [
+        {
+          "from": "dana@partner.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-09T13:00:00-08:00",
+          "body": "Would love to meet your design team at some point."
+        },
+        {
+          "from": "jamie@acme.example",
+          "to": "dana@partner.example",
+          "date": "2026-03-09T14:00:00-08:00",
+          "body": "Happy to make the intro to the design team."
+        }
+      ]
+    },
+    {
+      "id": "t04",
+      "subject": "Notes from the sync",
+      "messages": [
+        {
+          "from": "jamie@acme.example",
+          "to": "omar@acme.example",
+          "date": "2026-03-03T16:00:00-08:00",
+          "body": "Good sync today. I'll send you the notes tomorrow."
+        },
+        {
+          "from": "jamie@acme.example",
+          "to": "omar@acme.example",
+          "date": "2026-03-04T09:00:00-08:00",
+          "body": "Here are the notes from yesterday's sync.",
+          "attachments": [
+            "sync-notes.pdf"
+          ]
+        },
+        {
+          "from": "omar@acme.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-04T09:20:00-08:00",
+          "body": "Thanks!"
+        }
+      ]
+    },
+    {
+      "id": "t05",
+      "subject": "Offsite",
+      "messages": [
+        {
+          "from": "sam@acme.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-11T10:00:00-08:00",
+          "body": "Can you call me about the offsite?"
+        },
+        {
+          "from": "jamie@acme.example",
+          "to": "sam@acme.example",
+          "date": "2026-03-11T10:05:00-08:00",
+          "body": "Will call you at 3 today."
+        },
+        {
+          "from": "sam@acme.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-12T08:30:00-08:00",
+          "body": "Venue options attached, as discussed.",
+          "attachments": [
+            "venues.pdf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t06",
+      "subject": "Great meeting you",
+      "messages": [
+        {
+          "from": "jamie@acme.example",
+          "to": "lee@startup.example",
+          "date": "2026-02-27T17:00:00-08:00",
+          "body": "Great meeting you at the panel! Let's grab coffee sometime."
+        }
+      ]
+    },
+    {
+      "id": "t07",
+      "subject": "FAQ",
+      "messages": [
+        {
+          "from": "jamie@acme.example",
+          "to": "kim@acme.example",
+          "date": "2026-03-05T11:00:00-08:00",
+          "body": "If you want, I could draft the FAQ for the launch."
+        }
+      ]
+    },
+    {
+      "id": "t08",
+      "subject": "Hiring rubric",
+      "messages": [
+        {
+          "from": "jamie@acme.example",
+          "to": "ravi@acme.example",
+          "date": "2026-03-05T15:00:00-08:00",
+          "body": "If helpful, I can put together the hiring rubric."
+        },
+        {
+          "from": "ravi@acme.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-06T09:00:00-08:00",
+          "body": "Yes please, that would be great."
+        }
+      ]
+    },
+    {
+      "id": "t09",
+      "subject": "Onboarding doc review",
+      "messages": [
+        {
+          "from": "leo@acme.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-10T09:00:00-08:00",
+          "body": "Can you review the onboarding doc by Wednesday?"
+        },
+        {
+          "from": "jamie@acme.example",
+          "to": "leo@acme.example",
+          "date": "2026-03-10T09:30:00-08:00",
+          "body": "Will do."
+        },
+        {
+          "from": "leo@acme.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-13T08:45:00-08:00",
+          "body": "Just following up on the onboarding doc review?"
+        }
+      ]
+    },
+    {
+      "id": "t10",
+      "subject": "NDA",
+      "messages": [
+        {
+          "from": "jamie@acme.example",
+          "to": "ana@law.example",
+          "date": "2026-03-09T12:00:00-08:00",
+          "body": "I've attached the signed NDA.",
+          "attachments": [
+            "nda-signed.pdf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t11",
+      "subject": "Pricing sheet",
+      "messages": [
+        {
+          "from": "jamie@acme.example",
+          "to": "ben@client.example",
+          "date": "2026-02-27T15:00:00-08:00",
+          "body": "I'll get you the pricing sheet Friday."
+        },
+        {
+          "from": "jamie@acme.example",
+          "to": "ben@client.example",
+          "date": "2026-03-06T10:00:00-08:00",
+          "body": "Pricing sheet attached.",
+          "attachments": [
+            "pricing.xlsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t12",
+      "subject": "Draft proposal",
+      "messages": [
+        {
+          "from": "jamie@acme.example",
+          "to": "chloe@client.example",
+          "date": "2026-03-04T14:00:00-08:00",
+          "body": "I'll have the draft proposal to you next week."
+        },
+        {
+          "from": "jamie@acme.example",
+          "to": "chloe@client.example",
+          "date": "2026-03-11T16:00:00-08:00",
+          "body": "Still on it, should have it to you by Monday."
+        }
+      ]
+    },
+    {
+      "id": "t13",
+      "subject": "Expenses",
+      "messages": [
+        {
+          "from": "jamie@acme.example",
+          "to": "finance@acme.example",
+          "date": "2026-03-03T10:00:00-08:00",
+          "body": "I'll submit my expense report by end of month."
+        }
+      ]
+    },
+    {
+      "id": "t14",
+      "subject": "Contract signature",
+      "messages": [
+        {
+          "from": "jamie@acme.example",
+          "to": "jordan@client.example",
+          "date": "2026-02-27T11:00:00-08:00",
+          "body": "Could you sign the contract when you get a chance?",
+          "attachments": [
+            "contract.pdf"
+          ]
+        },
+        {
+          "from": "jamie@acme.example",
+          "to": "jordan@client.example",
+          "date": "2026-03-03T11:00:00-08:00",
+          "body": "Any update on the signature?"
+        },
+        {
+          "from": "jamie@acme.example",
+          "to": "jordan@client.example",
+          "date": "2026-03-06T11:00:00-08:00",
+          "body": "Following up on the contract."
+        },
+        {
+          "from": "jamie@acme.example",
+          "to": "jordan@client.example",
+          "date": "2026-03-10T11:00:00-08:00",
+          "body": "Just checking in on the signature."
+        }
+      ]
+    },
+    {
+      "id": "t15",
+      "subject": "Expense approval",
+      "messages": [
+        {
+          "from": "alex@acme.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-02T09:00:00-08:00",
+          "body": "I'll approve your expense by Wednesday."
+        }
+      ]
+    },
+    {
+      "id": "t16",
+      "subject": "Q4 numbers",
+      "messages": [
+        {
+          "from": "jamie@acme.example",
+          "to": "nina@acme.example",
+          "date": "2026-03-05T10:00:00-08:00",
+          "body": "Do you have the Q4 numbers?"
+        },
+        {
+          "from": "nina@acme.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-06T10:00:00-08:00",
+          "body": "Yes, attached.",
+          "attachments": [
+            "q4.xlsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t17",
+      "subject": "Headcount numbers",
+      "messages": [
+        {
+          "from": "grace@acme.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-12T17:00:00-08:00",
+          "body": "Need the headcount numbers ASAP for the exec review."
+        }
+      ]
+    },
+    {
+      "id": "t18",
+      "subject": "Phone screen confirmed",
+      "messages": [
+        {
+          "from": "tom@recruitco.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-12T12:00:00-08:00",
+          "body": "Your phone screen is confirmed for tomorrow, Saturday March 14 at 10am. Please send your portfolio link beforehand."
+        }
+      ]
+    },
+    {
+      "id": "t19",
+      "subject": "Vendor survey notes",
+      "messages": [
+        {
+          "from": "hannah@acme.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-12T10:00:00-08:00",
+          "body": "No rush, but could you share your notes on the vendor survey sometime next week?"
+        }
+      ]
+    },
+    {
+      "id": "t20",
+      "subject": "Room booking",
+      "messages": [
+        {
+          "from": "ivy@acme.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-04T10:00:00-08:00",
+          "body": "Can you confirm the room booking for Thursday?"
+        },
+        {
+          "from": "jamie@acme.example",
+          "to": "ivy@acme.example",
+          "date": "2026-03-04T10:10:00-08:00",
+          "body": "Confirmed."
+        }
+      ]
+    },
+    {
+      "id": "t21",
+      "subject": "Thanks for the demo",
+      "messages": [
+        {
+          "from": "rep@tooling.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-10T15:00:00-08:00",
+          "body": "Thanks for joining the demo. Let me know if you have any questions!"
+        }
+      ]
+    },
+    {
+      "id": "t22",
+      "subject": "Action required: confirm your email",
+      "messages": [
+        {
+          "from": "no-reply@saasapp.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-11T06:00:00-08:00",
+          "body": "Action required: please confirm your email address within 24 hours."
+        }
+      ]
+    },
+    {
+      "id": "t23",
+      "subject": "The Weekly Brief",
+      "messages": [
+        {
+          "from": "newsletter@industrynews.example",
+          "to": "jamie@acme.example",
+          "date": "2026-03-12T07:00:00-08:00",
+          "body": "Can you spare 2 minutes for our reader survey? Reply today!"
+        }
+      ]
+    },
+    {
+      "id": "t24",
+      "subject": "Slides for Marcus",
+      "messages": [
+        {
+          "from": "priya@acme.example",
+          "to": "marcus@vendorco.example",
+          "date": "2026-03-09T10:00:00-08:00",
+          "body": "I'll send Marcus the slides tomorrow.",
+          "cc": [
+            "jamie@acme.example"
+          ]
+        }
+      ]
+    }
+  ]
+}

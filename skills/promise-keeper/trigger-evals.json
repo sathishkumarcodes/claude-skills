@@ -1,0 +1,23 @@
+[
+  {"query": "ugh I know I told a bunch of people I'd get back to them this week and I've lost track. can you go through my sent mail and figure out what I said I'd do?", "should_trigger": true},
+  {"query": "What's needed from me before end of day? I've got back to back meetings and want to know what I owe people", "should_trigger": true},
+  {"query": "who am i still waiting on? feels like half my clients have gone quiet since the holidays", "should_trigger": true},
+  {"query": "Run promise keeper for the last 30 days and update my list", "should_trigger": true},
+  {"query": "anything urgent in my inbox I need to deal with before my 2pm interview?", "should_trigger": true},
+  {"query": "can you check my slack DMs and meeting notes from this sprint for action items that got assigned to me or that I volunteered for", "should_trigger": true},
+  {"query": "what did I actually get done in the last 5 days? need it for my weekly update to my manager", "should_trigger": true},
+  {"query": "here's my telegram export (result.json) - did I promise my roommate anything I haven't done yet", "should_trigger": true},
+  {"query": "I'm going on leave Monday. Before I go, find every open loop I've got with people over email so I can hand them off or close them", "should_trigger": true},
+  {"query": "loose ends check pls. last two weeks of gmail", "should_trigger": true},
+
+  {"query": "Write a follow-up email to Dana asking whether she had a chance to review the contract I sent on Tuesday. Keep it friendly, she's a new client", "should_trigger": false},
+  {"query": "Make me a to-do list app in React where I can add tasks with due dates and check them off", "should_trigger": false},
+  {"query": "summarize this email thread from my landlord about the lease renewal and tell me what he's asking for", "should_trigger": false},
+  {"query": "I promised my team I'd present the Q3 roadmap on Thursday. Can you help me build the slides? Here's the outline", "should_trigger": false},
+  {"query": "set up a gmail filter so anything from noreply@ addresses skips my inbox", "should_trigger": false},
+  {"query": "What's on my calendar tomorrow and do I have any conflicts?", "should_trigger": false},
+  {"query": "Can you draft a polite email declining the speaking invite from the conference? I don't have time this quarter", "should_trigger": false},
+  {"query": "track my job applications in a spreadsheet: company, role, date applied, status, recruiter name", "should_trigger": false},
+  {"query": "what does 'I'll circle back' actually mean in corporate speak? my coworker keeps saying it", "should_trigger": false},
+  {"query": "give me my morning brief", "should_trigger": false}
+]

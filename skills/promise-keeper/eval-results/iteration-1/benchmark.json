@@ -1,0 +1,1505 @@
+{
+  "metadata": {
+    "skill_name": "promise-keeper",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-11-22T21:19:03Z",
+    "evals_run": [
+      "combined-views",
+      "custom-window-7-days",
+      "drafts-for-overdue",
+      "full-report-from-mailbox",
+      "later-run-respects-ledger",
+      "no-source-available",
+      "pasted-slack-text",
+      "resolves-due-dates",
+      "telegram-export",
+      "view-done-last-n-days",
+      "view-needed-from-me",
+      "view-urgent",
+      "view-waiting-on-others",
+      "view-waiting-quiet-filter"
+    ],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": "combined-views",
+      "eval_name": "combined-views",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 93.1,
+        "tokens": 63107,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response has a separate section for what's needed from Jamie and a separate section for urgent items.",
+          "passed": true,
+          "evidence": "response.md has a '**Urgent**' block (5 numbered items) and a separate '**Needed from you**' block grouped as Overdue / Due today, tomorrow or ASAP / Next week / Later, divided by a horizontal rule."
+        },
+        {
+          "text": "The urgent section includes Grace's headcount numbers and Tom's portfolio link.",
+          "passed": true,
+          "evidence": "Urgent #1: 'Send your portfolio link to Tom (recruitco)... phone screen is tomorrow at 10am' (t18). Urgent #4: 'Send headcount numbers to Grace... she asked for them \"ASAP\" for the exec review' (t17)."
+        },
+        {
+          "text": "Hannah's vendor survey notes appear in the needed-from-me section but not in the urgent section.",
+          "passed": true,
+          "evidence": "Needed from you > Next week: 'Vendor survey notes to Hannah: Fri Mar 20 (stated). \"No rush\u2026 sometime next week.\" (t19)'. Not among the 5 urgent items. The ledger has Urgent=no for #14."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "custom-window-7-days",
+      "eval_name": "custom-window-7-days",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 93.4,
+        "tokens": 62661,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response states that it scanned roughly March 6 to March 13.",
+          "passed": true,
+          "evidence": "Header: \"scanned Mar 6 \u2013 Mar 13 (last 7 days)\"; body: \"I counted any message dated Mar 6 through today.\" Ledger: \"Window scanned: 2026-03-06 to 2026-03-13\"."
+        },
+        {
+          "text": "The response lists Leo's review, getting back to Marcus and the intro for Dana.",
+          "passed": true,
+          "evidence": "Overdue: \"Review the onboarding doc for Leo. Due Wed Mar 11 (stated), 2 days late\"; No firm date: \"Intro Dana to your design team. Inferred Mon Mar 16\" and \"Check clause 7 with legal and get back to Marcus. Inferred Mon Mar 16\". All match the answer key (t09, t03, t02)."
+        },
+        {
+          "text": "The Priya deck (promised March 2) and the expense report (promised March 3) are not listed as found in this scan.",
+          "passed": true,
+          "evidence": "Neither appears in sections 1-7 or in the in-window totals (\"9 open in the window\"). Both appear only under \"Open items from before Mar 6 (outside the window you asked for, but you should know about them)\", with \"Say if you want these tracked too\". Ledger keeps them in Notes, not the Items table."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "drafts-for-overdue",
+      "eval_name": "drafts-for-overdue",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 85.6,
+        "tokens": 67152,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response drafts a message to Priya about the Q1 budget deck.",
+          "passed": true,
+          "evidence": "response.md and drafts.md item 1 'Priya: Q1 budget deck (7 days overdue)', To: priya@acme.example, with Deliver and Renegotiate drafts. 7 days matches the key (due Fri Mar 6)."
+        },
+        {
+          "text": "The response drafts a message to Leo about the onboarding doc review.",
+          "passed": true,
+          "evidence": "Item 2 'Leo: onboarding doc review (2 days overdue, he followed up this morning)', To: leo@acme.example, Deliver and Renegotiate drafts."
+        },
+        {
+          "text": "At least one draft asks for more time with a specific new date, or the response offers a deliver, renegotiate or release choice.",
+          "passed": true,
+          "evidence": "Priya Renegotiate draft: 'You'll have it by Monday morning (Mar 16).' Options are labelled 'Deliver' and 'Renegotiate'."
+        },
+        {
+          "text": "The response presents the messages as drafts and does not send them or claim they were sent.",
+          "passed": true,
+          "evidence": "'Nothing has been sent.' in response.md; drafts.md header '# Draft replies (not sent)' and 'Edit, then send the ones you want yourself.'"
+        },
+        {
+          "text": "No drafts are written for items already done, such as Omar's notes or Ben's pricing sheet.",
+          "passed": true,
+          "evidence": "Drafts only for Priya, Leo, Ravi, Tom, Grace. Omar and Ben listed as closed ('3 closed in this window (sync notes to Omar, pricing sheet to Ben, room booking for Ivy)'). No draft for Sam (probably done) either."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "full-report-from-mailbox",
+      "eval_name": "full-report-from-mailbox",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 21,
+        "failed": 0,
+        "total": 21,
+        "time_seconds": 96.7,
+        "tokens": 63741,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The report lists sending Priya the Q1 budget deck as an open, overdue promise.",
+          "passed": true,
+          "evidence": "Overdue: 'Send Q1 budget deck to Priya: 7 days late (due Fri Mar 6, stated)'; ledger P1 status 'open, overdue 7 days'."
+        },
+        {
+          "text": "The report gives the Priya deck a due date of Friday March 6, marked as stated, and says it is 7 days overdue.",
+          "passed": true,
+          "evidence": "'7 days late (due Fri Mar 6, stated)'; ledger Due 2026-03-06 (Fri), Stated ('by Friday')."
+        },
+        {
+          "text": "The report lists reviewing Leo's onboarding doc as an overdue promise due Wednesday March 11.",
+          "passed": true,
+          "evidence": "Overdue: 'Review onboarding doc for Leo: 2 days late (due Wed Mar 11, stated)'."
+        },
+        {
+          "text": "The report lists putting together the hiring rubric for Ravi as an open promise.",
+          "passed": true,
+          "evidence": "Section 4: 'Hiring rubric for Ravi: inferred due today'; ledger P3 status open."
+        },
+        {
+          "text": "Sending Omar the sync notes is marked done, not listed as open.",
+          "passed": true,
+          "evidence": "Ledger P9 'done (sent with sync-notes.pdf; Omar thanked you)'; response 'Closed in this window: notes to Omar (Mar 4)'."
+        },
+        {
+          "text": "Getting Ben the pricing sheet is marked done, not listed as open.",
+          "passed": true,
+          "evidence": "Ledger P10 'done (pricing.xlsx sent on time)'; response closed list 'pricing sheet to Ben (Mar 6, on time)'."
+        },
+        {
+          "text": "The signed NDA sent to Ana is not listed as an open promise.",
+          "passed": true,
+          "evidence": "Listed under Not tracked: 'the signed NDA (already sent)'; ledger t10 'Signed NDA already sent; nothing asked'."
+        },
+        {
+          "text": "Drafting the FAQ for Kim is not listed as an open promise.",
+          "passed": true,
+          "evidence": "Not tracked: 'the FAQ offer to Kim (conditional, and Kim never said yes)'."
+        },
+        {
+          "text": "Getting coffee with Lee is either left out or listed only at low confidence, never as overdue or high confidence.",
+          "passed": true,
+          "evidence": "Not tracked: 'coffee with Lee (a pleasantry)'."
+        },
+        {
+          "text": "Priya's promise to send Marcus the slides is not listed as Jamie's promise or as something Jamie is waiting on.",
+          "passed": true,
+          "evidence": "Not tracked: 'Priya's promise to Marcus (you were only cc'd)'."
+        },
+        {
+          "text": "The report lists Alex's promised expense approval under waiting on others.",
+          "passed": true,
+          "evidence": "Waiting on others: 'Alex: approve your expense: quiet for 11 days. He said \"by Wednesday\" (Mar 4)'."
+        },
+        {
+          "text": "The report lists Jordan's contract signature under waiting on others and notes that Jamie has followed up three or more times.",
+          "passed": true,
+          "evidence": "Waiting: 'Jordan: sign the contract ... You've followed up 3 times with no reply.' Ledger W2 '3: FLAG'."
+        },
+        {
+          "text": "Nina's Q4 numbers are not listed as something Jamie is waiting on.",
+          "passed": true,
+          "evidence": "Response puts Nina under 'Closed in this window: ... Nina sent the Q4 numbers (Mar 6)'. Ledger keeps a W3 row in the Waiting table but with status 'replied', closed 2026-03-06, so not presented as open waiting."
+        },
+        {
+          "text": "The report lists Grace's request for headcount numbers as a request asked of Jamie.",
+          "passed": true,
+          "evidence": "Asked of you: 'Grace: headcount numbers for the exec review: urgent, she wrote \"ASAP.\"'."
+        },
+        {
+          "text": "The no-reply email confirmation and the newsletter survey are not listed as requests.",
+          "passed": true,
+          "evidence": "Not tracked: 'the newsletter and automated emails'; ledger lists t22 and t23 as not tracked."
+        },
+        {
+          "text": "Overdue items appear before items due today or later in the report.",
+          "passed": true,
+          "evidence": "Section 1 Overdue (Priya, Leo) comes before Due today/tomorrow, this week, etc."
+        },
+        {
+          "text": "Each listed promise quotes Jamie's own words from the email.",
+          "passed": true,
+          "evidence": "Every promise in the response has Jamie's quote (e.g. 'Sure, I'll send it over by Friday.', 'Will do.', 'If helpful, I can put together the hiring rubric', 'Happy to make the intro...', 'Let me check with legal...', 'Still on it...'); ledger has a Quote column filled for all P1-P10."
+        },
+        {
+          "text": "A ledger (a Sheet, a Tasks list or a promise-keeper.md file) is created holding the found items and the scan date March 13, 2026.",
+          "passed": true,
+          "evidence": "promise-keeper.md has P/A/W tables with all items and '**Last scan:** 2026-03-13'."
+        },
+        {
+          "text": "The response offers to set up a recurring scheduled task.",
+          "passed": true,
+          "evidence": "Next steps: 'Run it automatically: I can set up a scheduled task, for example every weekday at 8:30am'."
+        },
+        {
+          "text": "The response does not send any email or claim that one was sent.",
+          "passed": true,
+          "evidence": "drafts.md 'None of these have been sent'; response 'I won't send anything without your OK.'"
+        },
+        {
+          "text": "The report ends with counts of open and overdue items.",
+          "passed": true,
+          "evidence": "Report body closes with '12 open (7 promises, 3 asked of you, 2 waiting), 2 overdue, 1 probably done, 4 closed in this window.' Drafts and next-steps sections follow after it, so it is the last line of the report proper, not of the whole response."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "later-run-respects-ledger",
+      "eval_name": "later-run-respects-ledger",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 93.7,
+        "tokens": 64134,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response or ledger shows the scan started around March 5 or March 6, the last scan date, rather than a fresh 14-day window.",
+          "passed": true,
+          "evidence": "response.md header: 'scanned Mar 5 \u2013 Mar 13 (from your last scan on Mar 6, with a 1-day overlap)'; pre-window threads (expense report Mar 3, Alex Mar 2) listed as 'Outside this scan's window' and not added."
+        },
+        {
+          "text": "Coffee with Lee is still marked dropped in the updated ledger.",
+          "passed": true,
+          "evidence": "ledger.csv: 'Promise,Get coffee with Lee,...,Dropped,2026-02-27,2026-03-06'"
+        },
+        {
+          "text": "The FAQ for Kim is still marked dropped in the updated ledger.",
+          "passed": true,
+          "evidence": "ledger.csv: 'Promise,Draft the launch FAQ for Kim,...,Dropped,...'"
+        },
+        {
+          "text": "The Priya budget deck appears once in the updated ledger, still open.",
+          "passed": true,
+          "evidence": "Exactly one Priya row: 'Send Priya the Q1 budget deck,...,Open,...' with Urgent 'Yes - overdue 7 days'"
+        },
+        {
+          "text": "Ben's pricing sheet appears once in the updated ledger and is still done.",
+          "passed": true,
+          "evidence": "Exactly one row: 'Get Ben the pricing sheet,Ben,2026-03-06,Stated,Done'"
+        },
+        {
+          "text": "The updated ledger adds new items found since the last scan, including Leo's onboarding doc review.",
+          "passed": true,
+          "evidence": "New rows include 'Review Leo's onboarding doc' (due 2026-03-11, Open, overdue 2 days, chased), plus Ravi rubric, Chloe, Marcus, Dana, Sam call, Tom/Grace/Hannah asks, Nina."
+        },
+        {
+          "text": "Jordan's contract signature appears once in the updated ledger.",
+          "passed": true,
+          "evidence": "One Jordan row: 'Waiting,Contract signature,Jordan (jordan@client.example),...,Waiting,2026-03-10,...,3,3,...'"
+        },
+        {
+          "text": "The updated ledger records March 13, 2026 as the latest scan date.",
+          "passed": true,
+          "evidence": "ledger.csv last line: 'Last scan,2026-03-13'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "no-source-available",
+      "eval_name": "no-source-available",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 13.6,
+        "tokens": 54480,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response does not list any specific promises, people or due dates.",
+          "passed": true,
+          "evidence": "Response says 'I can't run a scan yet... nothing scanned yet' and lists no promises or people. The only dates are the run date and scan window (Nov 22, Nov 8 - Nov 22), not item due dates; examples like \"I'll send that Friday\" are generic phrasing, not tracked items."
+        },
+        {
+          "text": "The response suggests connecting an email or chat app, or pasting or uploading messages to scan.",
+          "passed": true,
+          "evidence": "'To get a real scan, connect one or more of these: Email (Gmail or Outlook)... Chat (Slack or Teams)...' and 'Or I can start right now: paste in some emails, Slack threads or meeting notes.'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "pasted-slack-text",
+      "eval_name": "pasted-slack-text",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 23.3,
+        "tokens": 55919,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The Q2 OKR draft is marked done.",
+          "passed": true,
+          "evidence": "Response 'Done' section: 'Q2 OKR draft (first pass) for Grace... You delivered it Wed Mar 11 at 17:45... Closed Mar 11.' Ledger row status 'done', closed 2026-03-11."
+        },
+        {
+          "text": "Looking at the hiring plan is listed as open, with an inferred due date of Monday March 16.",
+          "passed": true,
+          "evidence": "'Look at the hiring plan and get back to Grace... There's no date, so I've set it to **Mon Mar 16**, two business days later. That's my guess... It's still open'. Ledger: due 2026-03-16 (Mon), Inferred, open."
+        },
+        {
+          "text": "Grace's promised budget numbers are listed under waiting on others.",
+          "passed": true,
+          "evidence": "'Waiting on others' section: 'Grace: budget numbers. On Tue Mar 10 she said \"I'll get you the budget numbers by Thursday.\"' Ledger Type 'Waiting', status 'waiting'."
+        },
+        {
+          "text": "The response answers from the pasted text without first requiring Jamie to connect an app.",
+          "passed": true,
+          "evidence": "Answers directly from the pasted DM; ledger saved as file because 'Slack isn't connected here'. Connecting Slack/email is offered only as an optional follow-up at the end."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "resolves-due-dates",
+      "eval_name": "resolves-due-dates",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 82.5,
+        "tokens": 62372,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The Priya budget deck is due Friday March 6, 2026, labeled stated.",
+          "passed": true,
+          "evidence": "response.md row 1: 'Fri Mar 6' | 'Stated (you said \"Friday\")'; ledger: 2026-03-06 Stated"
+        },
+        {
+          "text": "Ben's pricing sheet ('Friday', written on Friday February 27) is given a due date of Friday March 6, not February 27.",
+          "passed": true,
+          "evidence": "Row 10: made Fri Feb 27, due 'Fri Mar 6', 'Stated (\"Friday\" = the next Friday after you sent it)'; Done Mar 6"
+        },
+        {
+          "text": "Chloe's draft proposal appears as one item, not two, with a due date of Monday March 16.",
+          "passed": true,
+          "evidence": "Single row 4: 'Mon Mar 16', 'Stated (you moved it from Fri Mar 13 to Monday)'; one ledger row t12"
+        },
+        {
+          "text": "The expense report is due Tuesday March 31, 2026, labeled stated.",
+          "passed": true,
+          "evidence": "Row 7: 'Tue Mar 31' | 'Stated (\"end of month\" = last business day of March)'"
+        },
+        {
+          "text": "Getting back to Marcus about clause 7 is due Monday March 16, labeled inferred.",
+          "passed": true,
+          "evidence": "Row 5: 'Mon Mar 16' | 'Inferred (\"get back to you\" = 2 business days)'"
+        },
+        {
+          "text": "The intro for Dana to the design team is due Monday March 16, labeled inferred.",
+          "passed": true,
+          "evidence": "Row 6: 'Mon Mar 16' | 'Inferred (no date given; 5 business days)'"
+        },
+        {
+          "text": "Leo's onboarding doc review is due Wednesday March 11, labeled stated.",
+          "passed": true,
+          "evidence": "Row 2: 'Wed Mar 11' | 'Stated (Leo's date, you accepted it)'"
+        },
+        {
+          "text": "Every promise listed has its due date labeled as stated or inferred.",
+          "passed": true,
+          "evidence": "All 10 promise rows carry Stated or Inferred in 'Date source'; summary '7 dates are stated and 3 are inferred' is correct"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "telegram-export",
+      "eval_name": "telegram-export",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 31.7,
+        "tokens": 57571,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response lists sending Taylor the apartment checklist as an overdue promise (due March 11).",
+          "passed": true,
+          "evidence": "Under **Overdue**: 'Send the apartment checklist to Taylor: due Wed Mar 11 (that night), 2 days late.'"
+        },
+        {
+          "text": "The response lists bringing the speaker on Saturday March 14 as an open promise.",
+          "passed": true,
+          "evidence": "Under **Due tomorrow**: 'Bring the speaker on Saturday (Mar 14)'; the ledger has it as Promise, open, due Sat Mar 14."
+        },
+        {
+          "text": "Taylor's booking of the cabin is listed under waiting on others, not as Jamie's promise.",
+          "passed": true,
+          "evidence": "Under **Waiting on others**: 'Taylor: book the cabin for the 21st'. The ledger has it as type Waiting."
+        },
+        {
+          "text": "'We should hang more' is left out or listed only at low confidence.",
+          "passed": true,
+          "evidence": "'Not counted: \"lol we should hang more\" (Mar 12). It's a friendly line with no specific plan.' It is not in the items table."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "view-done-last-n-days",
+      "eval_name": "view-done-last-n-days",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.83,
+        "passed": 5,
+        "failed": 1,
+        "total": 6,
+        "time_seconds": 80.7,
+        "tokens": 60618,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response includes updating the team wiki (closed March 10) and sharing the Q4 recap (closed March 12).",
+          "passed": true,
+          "evidence": "\"Mar 12: Shared the Q4 recap with Grace.\" and \"Mar 10: Updated the team wiki for Omar.\""
+        },
+        {
+          "text": "The response does not include the vendor list (closed March 2), the offsite venue (March 5), the pricing sheet (March 6) or the notes to Omar (March 4).",
+          "passed": true,
+          "evidence": "None of these four appear in the done list or anywhere else in response.md."
+        },
+        {
+          "text": "Each item listed shows the date it was closed.",
+          "passed": true,
+          "evidence": "All three bullets start with a date: Mar 12, Mar 12, Mar 10."
+        },
+        {
+          "text": "The response gives a count of items closed in the window.",
+          "passed": true,
+          "evidence": "\"3 closed in the last 5 days (Mar 8 \u2013 13)\". The count includes the Sam call as if confirmed."
+        },
+        {
+          "text": "The Priya budget deck is not listed as done.",
+          "passed": true,
+          "evidence": "Listed only as overdue: \"The Q1 budget deck for Priya was due Mar 6\"."
+        },
+        {
+          "text": "If the call with Sam is mentioned, it is described as probably done or needing confirmation, not as confirmed done.",
+          "passed": false,
+          "evidence": "\"Mar 12: Called Sam about the offsite... Sam's reply the next day, 'Venue options attached, as discussed,' shows the call happened.\" This states it as fact, with no hedge, counts it among the 3 closed, and the ledger row has Status=Done. The answer key says t05 is 'probably done'."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "view-needed-from-me",
+      "eval_name": "view-needed-from-me",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 103.3,
+        "tokens": 64135,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response presents a 'needed from you' view rather than the full report with every section.",
+          "passed": true,
+          "evidence": "response.md is headed 'Needed from you' and lists only owed promises and asks. It says the ledger 'also holds the 2 things you're waiting on from others, which aren't part of this view.' There is no Waiting section in the response."
+        },
+        {
+          "text": "The response includes the Priya deck, Leo's review, Ravi's rubric and Chloe's proposal as things Jamie owes.",
+          "passed": true,
+          "evidence": "#1 Q1 budget deck to Priya, #2 onboarding doc review for Leo, #8 hiring rubric for Ravi, #5 draft proposal to Chloe."
+        },
+        {
+          "text": "The response includes Grace's headcount numbers, Tom's portfolio link and Hannah's vendor survey notes as requests asked of Jamie.",
+          "passed": true,
+          "evidence": "#9 'Send Grace the headcount numbers' (ASAP), #4 portfolio link to Tom, #6 vendor survey notes with Hannah."
+        },
+        {
+          "text": "The response includes updating the roadmap doc from the standup notes, due Thursday March 12.",
+          "passed": true,
+          "evidence": "#3 'Update the roadmap doc. Due Thu Mar 12 (stated), 1 day late... (standup-2026-03-10.md)'."
+        },
+        {
+          "text": "Priya's and Omar's standup action items are not listed as Jamie's.",
+          "passed": true,
+          "evidence": "Not in the list. The ledger 'Not tracked' section says: 'Standup items for Priya (budget numbers to finance) and Omar (book quarterly review room): assigned to them, not owed to you.'"
+        },
+        {
+          "text": "Alex's expense approval and Jordan's contract signature are not listed as things needed from Jamie.",
+          "passed": true,
+          "evidence": "Not in the response's list. Alex and Jordan appear only in the ledger's Waiting section. The response mentions '2 things you're waiting on' only as excluded from this view."
+        },
+        {
+          "text": "Sending Omar the notes and getting Ben the pricing sheet are not listed as open.",
+          "passed": true,
+          "evidence": "The response lists them only as closed: 'The closed ones are the notes to Omar, the call with Sam, the pricing sheet to Ben...'. The ledger marks t04 and t11 done."
+        },
+        {
+          "text": "Overdue items are listed before items that are not yet due.",
+          "passed": true,
+          "evidence": "The 'Overdue' section (#1-3: Priya, Leo, roadmap) comes first. All later items are due today or later."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "view-urgent",
+      "eval_name": "view-urgent",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 9,
+        "failed": 0,
+        "total": 9,
+        "time_seconds": 66.7,
+        "tokens": 59958,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response includes the Priya budget deck with a reason saying it is overdue.",
+          "passed": true,
+          "evidence": "#2: 'Send the Q1 budget deck to Priya. Reason: 7 days overdue (you said \"by Friday\" on Mar 2, so it was due Mar 6).'"
+        },
+        {
+          "text": "The response includes Leo's onboarding doc review with a reason saying it is overdue or that Leo followed up.",
+          "passed": true,
+          "evidence": "#3: 'Review Leo's onboarding doc. Reason: 2 days overdue (due Wed Mar 11), and he followed up this morning.'"
+        },
+        {
+          "text": "The response includes Grace's headcount numbers with a reason citing ASAP.",
+          "passed": true,
+          "evidence": "#4: 'Send Grace the headcount numbers. Reason: she asked \"ASAP for the exec review\"'"
+        },
+        {
+          "text": "The response includes sending Tom the portfolio link with a reason citing the phone screen tomorrow.",
+          "passed": true,
+          "evidence": "#1: 'Send Tom (RecruitCo) your portfolio link before the phone screen. Reason: screen is tomorrow, Sat Mar 14 at 10am.'"
+        },
+        {
+          "text": "The response includes updating the roadmap doc with a reason saying it is overdue.",
+          "passed": true,
+          "evidence": "#5: 'Update the roadmap doc. Reason: 1 day overdue.' (standup action item, Thursday deadline)"
+        },
+        {
+          "text": "Hannah's vendor survey notes are not listed as urgent.",
+          "passed": true,
+          "evidence": "Hannah's vendor survey notes appear only under 'Coming up but not urgent' ('next week'); ledger Urgent=no."
+        },
+        {
+          "text": "The expense report due March 31 is not listed as urgent.",
+          "passed": true,
+          "evidence": "Expense report appears only under 'Coming up but not urgent' ('your expense report (Mar 31)'); ledger Urgent=no."
+        },
+        {
+          "text": "Alex's approval and Jordan's signature are not listed as urgent.",
+          "passed": true,
+          "evidence": "Both under 'Waiting on others (not blocking anything)': Jordan's signature and Alex's approval; ledger Urgent=no for #12, #13."
+        },
+        {
+          "text": "Every urgent item has a short reason.",
+          "passed": true,
+          "evidence": "All six urgent items carry an italic 'Reason:' line (7 days overdue; 2 days overdue + followed up; ASAP; screen tomorrow; 1 day overdue; due today, estimate). Tom's item adds a longer date-ambiguity caveat, but the reason itself is short."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "view-waiting-on-others",
+      "eval_name": "view-waiting-on-others",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 62.7,
+        "tokens": 58427,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response lists Alex's expense approval and Jordan's contract signature.",
+          "passed": true,
+          "evidence": "Item 1 'Alex ... approve your expense', item 2 'Jordan ... sign the contract' (thread t15, t14)."
+        },
+        {
+          "text": "Alex is listed before Jordan.",
+          "passed": true,
+          "evidence": "Alex is item 1, Jordan item 2; 'Alex has been quiet longest.'"
+        },
+        {
+          "text": "The response shows about 11 days quiet for Alex and about 3 days quiet for Jordan (within one day either way).",
+          "passed": true,
+          "evidence": "'11 days quiet, 0 follow-ups' for Alex; '3 days quiet since your last nudge' for Jordan."
+        },
+        {
+          "text": "The response flags that Jamie has followed up with Jordan three or more times.",
+          "passed": true,
+          "evidence": "'\u2691 You've followed up 3 times (Mar 3, Mar 6, Mar 10) and got no reply.'"
+        },
+        {
+          "text": "Nina is not listed.",
+          "passed": true,
+          "evidence": "Nina appears only under 'Already replied: Nina sent the Q4 numbers on Mar 6, so that one is closed', not as a waiting item; ledger status 'replied'."
+        },
+        {
+          "text": "None of Jamie's own promises, such as the Priya deck, are listed as waiting items.",
+          "passed": true,
+          "evidence": "Waiting list has only Alex and Jordan. Priya deck appears only in footer 'Not shown in this view' as one of Jamie's promises."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "view-waiting-quiet-filter",
+      "eval_name": "view-waiting-quiet-filter",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 60.0,
+        "tokens": 57755,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response lists Alex's expense approval.",
+          "passed": true,
+          "evidence": "response.md: \"Alex: expense approval, 11 days quiet. On Mar 2 Alex wrote 'I'll approve your expense by Wednesday.' That was Mar 4...\" Matches answer key t15 (since Mar 2, 11 days)."
+        },
+        {
+          "text": "The response does not list Jordan, whose last message from Jamie was 3 days ago, as quiet for more than a week.",
+          "passed": true,
+          "evidence": "Alex is stated to be \"the only one past a week by the usual measure\"; Jordan is shown separately with \"It doesn't count as a week quiet only because your latest nudge went out on Mar 10, 3 days ago\", plus the 3-follow-up flag. The ledger also records Days quiet = 3."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "combined-views",
+      "eval_name": "combined-views",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 30.8,
+        "tokens": 50988,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response has a separate section for what's needed from Jamie and a separate section for urgent items.",
+          "passed": true,
+          "evidence": "'## Urgent: today or this weekend' (5 items) and a separate '## Open things you owe people (not due yet)' section that lists what's needed from Jamie, plus Waiting/Optional/Nothing-needed sections. Urgent items are not repeated in the needed section, but the two sections are distinct."
+        },
+        {
+          "text": "The urgent section includes Grace's headcount numbers and Tom's portfolio link.",
+          "passed": true,
+          "evidence": "Urgent #1: 'Headcount numbers for Grace (exec review)... \"ASAP\"'. Urgent #4: 'Portfolio link for Tom (RecruitCo): before tomorrow 10am'."
+        },
+        {
+          "text": "Hannah's vendor survey notes appear in the needed-from-me section but not in the urgent section.",
+          "passed": true,
+          "evidence": "'Hannah, vendor survey notes. She asked for them \"sometime next week, no rush.\"' appears under 'Open things you owe people (not due yet)' and not under Urgent."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "custom-window-7-days",
+      "eval_name": "custom-window-7-days",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 50.7,
+        "tokens": 53831,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response states that it scanned roughly March 6 to March 13.",
+          "passed": true,
+          "evidence": "Opening line: \"Here's your promise check for the last 7 days (Fri Mar 6 to today, Fri Mar 13), from your mailbox export.\""
+        },
+        {
+          "text": "The response lists Leo's review, getting back to Marcus and the intro for Dana.",
+          "passed": true,
+          "evidence": "\"Leo: onboarding doc review ... 2 days overdue\"; \"Marcus: check clause 7 (liability) with legal\"; \"Dana: intro to the design team. Promised Mar 9, no date set.\""
+        },
+        {
+          "text": "The Priya deck (promised March 2) and the expense report (promised March 3) are not listed as found in this scan.",
+          "passed": true,
+          "evidence": "Both appear only under \"Just outside the window, but you should know\" with \"I kept to 7 days as you asked, but two older items look overdue\"; the expense report is a parenthetical note there. Neither is listed among in-window promises."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "drafts-for-overdue",
+      "eval_name": "drafts-for-overdue",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 32.7,
+        "tokens": 57573,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response drafts a message to Priya about the Q1 budget deck.",
+          "passed": true,
+          "evidence": "'### 1. Priya: Q1 budget deck (due Fri Mar 6, one week late)' with draft To: priya@acme.example, plus an alternative if not ready."
+        },
+        {
+          "text": "The response drafts a message to Leo about the onboarding doc review.",
+          "passed": true,
+          "evidence": "'### 2. Leo: onboarding doc review (due Wed Mar 11, two days late, and he's followed up)' with draft To: leo@acme.example."
+        },
+        {
+          "text": "At least one draft asks for more time with a specific new date, or the response offers a deliver, renegotiate or release choice.",
+          "passed": true,
+          "evidence": "Priya: deliver draft plus 'If the deck isn't ready yet, use this instead: ...I'll have the Q1 budget deck to you by [day/time]' (deliver vs renegotiate choice). Leo draft option: 'I'll have my review done by end of day today.' Priya's new date is a placeholder, but the deliver/renegotiate choice satisfies the 'or' branch."
+        },
+        {
+          "text": "The response presents the messages as drafts and does not send them or claim they were sent.",
+          "passed": true,
+          "evidence": "'Nothing has been sent. Text in [brackets] is for you to fill in.'; drafts.md header '# Draft replies (not sent)'."
+        },
+        {
+          "text": "No drafts are written for items already done, such as Omar's notes or Ben's pricing sheet.",
+          "passed": true,
+          "evidence": "Drafts only for Priya, Leo, Grace, Tom. 'Skipped (already done...)': 'Notes to Omar (sent)... pricing sheet to Ben (sent)'."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "full-report-from-mailbox",
+      "eval_name": "full-report-from-mailbox",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.81,
+        "passed": 17,
+        "failed": 4,
+        "total": 21,
+        "time_seconds": 61.4,
+        "tokens": 54888,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The report lists sending Priya the Q1 budget deck as an open, overdue promise.",
+          "passed": true,
+          "evidence": "Ledger #2 Priya 'OVERDUE (1 week)'; response 'Priya: Q1 budget deck is a week overdue.'"
+        },
+        {
+          "text": "The report gives the Priya deck a due date of Friday March 6, marked as stated, and says it is 7 days overdue.",
+          "passed": false,
+          "evidence": "Due Mar 6 and 'a week overdue' given, but nothing marks the date as stated vs inferred (no stated/inferred field anywhere), and it says '1 week' rather than 7 days. Fails on the 'marked as stated' requirement."
+        },
+        {
+          "text": "The report lists reviewing Leo's onboarding doc as an overdue promise due Wednesday March 11.",
+          "passed": true,
+          "evidence": "'Leo: onboarding doc review is 2 days overdue. You said \"Will do\" to a Wednesday (Mar 11) deadline'."
+        },
+        {
+          "text": "The report lists putting together the hiring rubric for Ravi as an open promise.",
+          "passed": true,
+          "evidence": "'Ravi: the hiring rubric ... it's now a real commitment'; ledger #5 OPEN."
+        },
+        {
+          "text": "Sending Omar the sync notes is marked done, not listed as open.",
+          "passed": true,
+          "evidence": "Ledger #8 Omar DONE; response 'Already done: Omar: sync notes sent Mar 4'."
+        },
+        {
+          "text": "Getting Ben the pricing sheet is marked done, not listed as open.",
+          "passed": true,
+          "evidence": "Ledger #10 Ben 'DONE (late)'; listed under Already done. (Lateness claim is wrong, see claims.)"
+        },
+        {
+          "text": "The signed NDA sent to Ana is not listed as an open promise.",
+          "passed": true,
+          "evidence": "Ana NDA listed as DONE ('Attached Mar 9'), not open."
+        },
+        {
+          "text": "Drafting the FAQ for Kim is not listed as an open promise.",
+          "passed": true,
+          "evidence": "Not counted: 'Kim, \"If you want, I could draft the FAQ\": an offer Kim never took up.'"
+        },
+        {
+          "text": "Getting coffee with Lee is either left out or listed only at low confidence, never as overdue or high confidence.",
+          "passed": true,
+          "evidence": "Not counted: 'Lee, \"Let's grab coffee sometime\": social nicety'."
+        },
+        {
+          "text": "Priya's promise to send Marcus the slides is not listed as Jamie's promise or as something Jamie is waiting on.",
+          "passed": true,
+          "evidence": "Not counted: 'Priya's \"I'll send Marcus the slides tomorrow\": you were only cc'd'."
+        },
+        {
+          "text": "The report lists Alex's promised expense approval under waiting on others.",
+          "passed": true,
+          "evidence": "Waiting on others: 'Alex: your expense approval. Alex promised it by Wed, Mar 4.'"
+        },
+        {
+          "text": "The report lists Jordan's contract signature under waiting on others and notes that Jamie has followed up three or more times.",
+          "passed": true,
+          "evidence": "Waiting: 'Jordan ... You've emailed 4 times (Feb 27, Mar 3, Mar 6, Mar 10) with no reply' = initial ask plus 3 follow-ups."
+        },
+        {
+          "text": "Nina's Q4 numbers are not listed as something Jamie is waiting on.",
+          "passed": true,
+          "evidence": "Nina appears only under 'Already done: Nina: Q4 numbers received'; ledger row #18 status DONE."
+        },
+        {
+          "text": "The report lists Grace's request for headcount numbers as a request asked of Jamie.",
+          "passed": true,
+          "evidence": "Handle today #2: 'Grace: headcount numbers, \"ASAP\" for the exec review.'; ledger 'Requests to me' #14."
+        },
+        {
+          "text": "The no-reply email confirmation and the newsletter survey are not listed as requests.",
+          "passed": true,
+          "evidence": "Listed as 'Automated and marketing mail ... ignored'."
+        },
+        {
+          "text": "Overdue items appear before items due today or later in the report.",
+          "passed": false,
+          "evidence": "'Handle today' order is Leo (overdue), Grace (not overdue, ASAP), Tom (due before Sat), then Priya (overdue 7 days). The overdue Priya item comes after items not yet overdue."
+        },
+        {
+          "text": "Each listed promise quotes Jamie's own words from the email.",
+          "passed": false,
+          "evidence": "Only Leo ('Will do') and Priya ('by Friday') carry Jamie's words. Marcus, Ravi, Dana, Chloe and the expense report have no quote of Jamie's words, and the ledger has no quote column."
+        },
+        {
+          "text": "A ledger (a Sheet, a Tasks list or a promise-keeper.md file) is created holding the found items and the scan date March 13, 2026.",
+          "passed": true,
+          "evidence": "promise-keeper.md holds all 18 items with 'scanned Friday, March 13, 2026'."
+        },
+        {
+          "text": "The response offers to set up a recurring scheduled task.",
+          "passed": true,
+          "evidence": "'I can also set it up to run on a schedule, for example a Monday-morning check.'"
+        },
+        {
+          "text": "The response does not send any email or claim that one was sent.",
+          "passed": true,
+          "evidence": "drafts.md 'Draft replies (not sent)'; response 'Nothing has been sent.'"
+        },
+        {
+          "text": "The report ends with counts of open and overdue items.",
+          "passed": false,
+          "evidence": "Counts appear at the top ('6 things to handle today or Monday, 5 open commitments ...'), not at the end, and there is no overdue count. The response ends with caveats and a schedule offer."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "later-run-respects-ledger",
+      "eval_name": "later-run-respects-ledger",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.88,
+        "passed": 7,
+        "failed": 1,
+        "total": 8,
+        "time_seconds": 53.7,
+        "tokens": 54194,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response or ledger shows the scan started around March 5 or March 6, the last scan date, rather than a fresh 14-day window.",
+          "passed": false,
+          "evidence": "response.md only notes 'previous scan: March 6, 2026'; it never says the scan started then, and it explicitly added pre-window items ('Last scan missed some older items: Chloe's proposal, the expense report, Ravi's rubric and Alex's approval. I added them using their original dates', plus Omar sync notes Mar 4), i.e. it rescanned the whole mailbox."
+        },
+        {
+          "text": "Coffee with Lee is still marked dropped in the updated ledger.",
+          "passed": true,
+          "evidence": "ledger.csv: 'Promise,Get coffee with Lee,...,Dropped'"
+        },
+        {
+          "text": "The FAQ for Kim is still marked dropped in the updated ledger.",
+          "passed": true,
+          "evidence": "ledger.csv: 'Promise,Draft the launch FAQ for Kim,...,Dropped'"
+        },
+        {
+          "text": "The Priya budget deck appears once in the updated ledger, still open.",
+          "passed": true,
+          "evidence": "One row: 'Send Priya the Q1 budget deck,...,Open'"
+        },
+        {
+          "text": "Ben's pricing sheet appears once in the updated ledger and is still done.",
+          "passed": true,
+          "evidence": "One row: 'Get Ben the pricing sheet,...,Done'"
+        },
+        {
+          "text": "The updated ledger adds new items found since the last scan, including Leo's onboarding doc review.",
+          "passed": true,
+          "evidence": "New row: 'Promise,Review Leo's onboarding doc,Leo,2026-03-11,Stated,Open,2026-03-10,,Will do.,High'"
+        },
+        {
+          "text": "Jordan's contract signature appears once in the updated ledger.",
+          "passed": true,
+          "evidence": "One Jordan row: 'Waiting,Contract signature,Jordan,,,Waiting,2026-03-06,,Following up on the contract.,'"
+        },
+        {
+          "text": "The updated ledger records March 13, 2026 as the latest scan date.",
+          "passed": true,
+          "evidence": "ledger.csv last line: 'Last scan,2026-03-13'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "no-source-available",
+      "eval_name": "no-source-available",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 11.9,
+        "tokens": 49513,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response does not list any specific promises, people or due dates.",
+          "passed": true,
+          "evidence": "Response says 'Without a source, any list of promises I made would be invented, so I haven't made a tracker.' It lists no people or due dates; \"I'll send the deck by Friday\" is a generic illustration of a category, not a tracked item."
+        },
+        {
+          "text": "The response suggests connecting an email or chat app, or pasting or uploading messages to scan.",
+          "passed": true,
+          "evidence": "'Connect a source. Gmail and Slack are the most useful...' and 'Paste or upload messages. Email threads, Slack exports, meeting notes or a to-do list all work.'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "pasted-slack-text",
+      "eval_name": "pasted-slack-text",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "time_seconds": 10.7,
+        "tokens": 49705,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The Q2 OKR draft is marked done.",
+          "passed": true,
+          "evidence": "'Done' section: 'Q2 OKR draft... You put it in the shared folder on Wed at 17:45, which met the deadline, and Grace thanked you.'"
+        },
+        {
+          "text": "Looking at the hiring plan is listed as open, with an inferred due date of Monday March 16.",
+          "passed": false,
+          "evidence": "Listed under 'Still open' but no inferred due date is given: 'You didn't give a date, but it's been about a day and the weekend is coming.' The suggested message proposes 'by Tuesday', not Monday March 16."
+        },
+        {
+          "text": "Grace's promised budget numbers are listed under waiting on others.",
+          "passed": true,
+          "evidence": "'Waiting on Grace' section: 'Budget numbers. On Tuesday she said she'd send them by Thursday (yesterday). The DM doesn't show them arriving.'"
+        },
+        {
+          "text": "The response answers from the pasted text without first requiring Jamie to connect an app.",
+          "passed": true,
+          "evidence": "Answers directly from the pasted DM; no connector requested."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "resolves-due-dates",
+      "eval_name": "resolves-due-dates",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 6,
+        "failed": 2,
+        "total": 8,
+        "time_seconds": 43.0,
+        "tokens": 52251,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The Priya budget deck is due Friday March 6, 2026, labeled stated.",
+          "passed": true,
+          "evidence": "Row 1: 'Fri Mar 6' | 'You gave it' (the response's equivalent of stated); ledger 'GIVEN (\"by Friday\")'"
+        },
+        {
+          "text": "Ben's pricing sheet ('Friday', written on Friday February 27) is given a due date of Friday March 6, not February 27.",
+          "passed": true,
+          "evidence": "Kept table: '(\"Friday\", said Fri Feb 27, so the following Friday) ... Fri Mar 6'"
+        },
+        {
+          "text": "Chloe's draft proposal appears as one item, not two, with a due date of Monday March 16.",
+          "passed": true,
+          "evidence": "Single row 5: 'Mon Mar 16', 'You gave it (you changed the date from Fri Mar 13)'"
+        },
+        {
+          "text": "The expense report is due Tuesday March 31, 2026, labeled stated.",
+          "passed": true,
+          "evidence": "Row 7: 'Tue Mar 31' | 'You gave it'"
+        },
+        {
+          "text": "Getting back to Marcus about clause 7 is due Monday March 16, labeled inferred.",
+          "passed": false,
+          "evidence": "Row 3: 'Wed Mar 18' | 'Guessed (3 business days for a legal check)'. Label is right but date is wrong (expected Mon Mar 16)."
+        },
+        {
+          "text": "The intro for Dana to the design team is due Monday March 16, labeled inferred.",
+          "passed": true,
+          "evidence": "Row 4: 'Mon Mar 16' | 'Guessed (about a week after the offer)'"
+        },
+        {
+          "text": "Leo's onboarding doc review is due Wednesday March 11, labeled stated.",
+          "passed": true,
+          "evidence": "Row 2: 'Wed Mar 11' | 'You agreed to it (Leo's date)'. A non-guessed label in the stated family; ledger 'AGREED'. Passed, though it uses a third category name rather than 'stated'."
+        },
+        {
+          "text": "Every promise listed has its due date labeled as stated or inferred.",
+          "passed": false,
+          "evidence": "Ivy room booking is listed in the 'Kept' promises table with Date source 'n/a (you did it right away)'; labeling uses three categories (gave/agreed/guessed), not a strict stated/inferred split."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "telegram-export",
+      "eval_name": "telegram-export",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": 18.9,
+        "tokens": 50985,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response lists sending Taylor the apartment checklist as an overdue promise (due March 11).",
+          "passed": true,
+          "evidence": "'Send Taylor the apartment checklist. Overdue.' ... 'That made it due Wednesday night.' The ledger says Due Wed Mar 11, Overdue."
+        },
+        {
+          "text": "The response lists bringing the speaker on Saturday March 14 as an open promise.",
+          "passed": true,
+          "evidence": "'Bring the speaker on Saturday. Due tomorrow, Sat Mar 14.' The output hedges that it may mean Mar 21, but it lists the item as an open promise due Mar 14."
+        },
+        {
+          "text": "Taylor's booking of the cabin is listed under waiting on others, not as Jamie's promise.",
+          "passed": true,
+          "evidence": "Under 'What you're waiting on from Taylor': 'Cabin booking for the 21st.' The ledger has a 'Waiting on others' table."
+        },
+        {
+          "text": "'We should hang more' is left out or listed only at low confidence.",
+          "passed": true,
+          "evidence": "'Not counted: \"lol we should hang more\" is a friendly comment, not a commitment, so I left it out.'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "view-done-last-n-days",
+      "eval_name": "view-done-last-n-days",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 29.2,
+        "tokens": 49775,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response includes updating the team wiki (closed March 10) and sharing the Q4 recap (closed March 12).",
+          "passed": true,
+          "evidence": "Table rows: \"Tue Mar 10 | Updated the team wiki\" and \"Thu Mar 12 | Shared the Q4 recap\"."
+        },
+        {
+          "text": "The response does not include the vendor list (closed March 2), the offsite venue (March 5), the pricing sheet (March 6) or the notes to Omar (March 4).",
+          "passed": true,
+          "evidence": "The pricing sheet and venue booking appear only under 'Not counted... finished before this window'. The vendor list and the notes to Omar are absent."
+        },
+        {
+          "text": "Each item listed shows the date it was closed.",
+          "passed": true,
+          "evidence": "The 'When' column gives Mar 9, Mar 10, Mar 11 and Mar 12 for each row."
+        },
+        {
+          "text": "The response gives a count of items closed in the window.",
+          "passed": true,
+          "evidence": "\"That's **4 things**.\" The count includes the NDA, which is not a tracked promise (answer key t10: exclude), so the count is inflated."
+        },
+        {
+          "text": "The Priya budget deck is not listed as done.",
+          "passed": true,
+          "evidence": "Listed under overdue: \"Q1 budget deck for Priya: due Fri Mar 6... I don't see that you sent it.\""
+        },
+        {
+          "text": "If the call with Sam is mentioned, it is described as probably done or needing confirmation, not as confirmed done.",
+          "passed": true,
+          "evidence": "The source column reads \"Inferred: Sam's Mar 12 email says 'as discussed'\". The note says: \"I counted the Sam call as done only because Sam wrote 'as discussed'... Nothing in email confirms the call itself.\""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "view-needed-from-me",
+      "eval_name": "view-needed-from-me",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 6,
+        "failed": 2,
+        "total": 8,
+        "time_seconds": 33.0,
+        "tokens": 50634,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response presents a 'needed from you' view rather than the full report with every section.",
+          "passed": false,
+          "evidence": "The response includes the full report: a 'Not on you (for context)' section with Waiting on others (Jordan, Alex), Already done, Not commitments yet, Other people's items and Skipped, plus a 'Probably done' section."
+        },
+        {
+          "text": "The response includes the Priya deck, Leo's review, Ravi's rubric and Chloe's proposal as things Jamie owes.",
+          "passed": true,
+          "evidence": "#3 Q1 budget deck for Priya, #2 onboarding doc review for Leo, #10 hiring rubric for Ravi, #6 draft proposal for Chloe."
+        },
+        {
+          "text": "The response includes Grace's headcount numbers, Tom's portfolio link and Hannah's vendor survey notes as requests asked of Jamie.",
+          "passed": true,
+          "evidence": "#1 headcount numbers for Grace, #5 portfolio link for Tom, #7 vendor survey notes for Hannah."
+        },
+        {
+          "text": "The response includes updating the roadmap doc from the standup notes, due Thursday March 12.",
+          "passed": true,
+          "evidence": "#4 'Roadmap doc update. This was your standup action item, due Thursday (Mar 12).'"
+        },
+        {
+          "text": "Priya's and Omar's standup action items are not listed as Jamie's.",
+          "passed": true,
+          "evidence": "Listed under 'Not on you > Other people's items: Priya's budget numbers to finance... and Omar's room booking for the quarterly review.'"
+        },
+        {
+          "text": "Alex's expense approval and Jordan's contract signature are not listed as things needed from Jamie.",
+          "passed": true,
+          "evidence": "Listed under 'Not on you (for context) > Waiting on others', not as owed by Jamie (with a suggestion to nudge them)."
+        },
+        {
+          "text": "Sending Omar the notes and getting Ben the pricing sheet are not listed as open.",
+          "passed": true,
+          "evidence": "Listed under 'Already done: sync notes to Omar, pricing sheet to Ben'."
+        },
+        {
+          "text": "Overdue items are listed before items that are not yet due.",
+          "passed": false,
+          "evidence": "Item #1 (Grace's headcount numbers, not yet overdue: asked Mar 12, ASAP) is listed before the overdue items #2 Leo, #3 Priya and #4 roadmap. The 'Overdue or urgent' section mixes overdue and not-yet-due items."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "view-urgent",
+      "eval_name": "view-urgent",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 9,
+        "failed": 0,
+        "total": 9,
+        "time_seconds": 26.9,
+        "tokens": 50918,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response includes the Priya budget deck with a reason saying it is overdue.",
+          "passed": true,
+          "evidence": "#3: 'Priya: Q1 budget deck (a week overdue)'; due Friday March 6."
+        },
+        {
+          "text": "The response includes Leo's onboarding doc review with a reason saying it is overdue or that Leo followed up.",
+          "passed": true,
+          "evidence": "#1: 'Leo: onboarding doc review (overdue since Wed)' ... 'He followed up this morning at 8:45.'"
+        },
+        {
+          "text": "The response includes Grace's headcount numbers with a reason citing ASAP.",
+          "passed": true,
+          "evidence": "#2: 'Grace: headcount numbers (\"ASAP\")'"
+        },
+        {
+          "text": "The response includes sending Tom the portfolio link with a reason citing the phone screen tomorrow.",
+          "passed": true,
+          "evidence": "#5: 'Tom (RecruitCo): send your portfolio link today. Your phone screen is tomorrow, Saturday, March 14, at 10am.'"
+        },
+        {
+          "text": "The response includes updating the roadmap doc with a reason saying it is overdue.",
+          "passed": true,
+          "evidence": "#4: 'Roadmap doc (overdue since Thursday)'"
+        },
+        {
+          "text": "Hannah's vendor survey notes are not listed as urgent.",
+          "passed": true,
+          "evidence": "Hannah listed under 'Open, but not urgent': 'She said \"no rush,\" next week.'"
+        },
+        {
+          "text": "The expense report due March 31 is not listed as urgent.",
+          "passed": true,
+          "evidence": "Expense report listed under 'Open, but not urgent' ('by end of month (March 31)')."
+        },
+        {
+          "text": "Alex's approval and Jordan's signature are not listed as urgent.",
+          "passed": true,
+          "evidence": "Jordan and Alex are under 'Waiting on others (nudge if useful)', not the Urgent section."
+        },
+        {
+          "text": "Every urgent item has a short reason.",
+          "passed": true,
+          "evidence": "Each urgent heading carries a short reason in parentheses or the body: '(overdue since Wed)', '(\"ASAP\")', '(a week overdue)', '(overdue since Thursday)', 'phone screen is tomorrow'."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "view-waiting-on-others",
+      "eval_name": "view-waiting-on-others",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.67,
+        "passed": 4,
+        "failed": 2,
+        "total": 6,
+        "time_seconds": 23.3,
+        "tokens": 50179,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response lists Alex's expense approval and Jordan's contract signature.",
+          "passed": true,
+          "evidence": "'1. Jordan ... contract signature' and '2. Alex ... expense approval'."
+        },
+        {
+          "text": "Alex is listed before Jordan.",
+          "passed": false,
+          "evidence": "Jordan is listed #1 and Alex #2 ('Most stuck first')."
+        },
+        {
+          "text": "The response shows about 11 days quiet for Alex and about 3 days quiet for Jordan (within one day either way).",
+          "passed": false,
+          "evidence": "No days-quiet figures matching: Jordan 'Stuck for 2 weeks' (counted from Feb 27, not last nudge Mar 10 = 3 days); Alex '9 days overdue' (days past due, not 11 days quiet since Mar 2)."
+        },
+        {
+          "text": "The response flags that Jamie has followed up with Jordan three or more times.",
+          "passed": true,
+          "evidence": "'followed up on Mar 3, Mar 6 and Mar 10. Jordan hasn't replied to any of them... a 5th nudge probably won't help.'"
+        },
+        {
+          "text": "Nina is not listed.",
+          "passed": true,
+          "evidence": "Nina only in 'Already resolved (left off the list): Nina sent the Q4 numbers (Mar 6)', not a waiting item."
+        },
+        {
+          "text": "None of Jamie's own promises, such as the Priya deck, are listed as waiting items.",
+          "passed": true,
+          "evidence": "Priya deck appears only under the 'waiting on you' section, not in Waiting on others. (Note: Kim FAQ, Jamie's own unaccepted offer, is listed as waiting item #4 - borderline but not a promise per the answer key.)"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "view-waiting-quiet-filter",
+      "eval_name": "view-waiting-quiet-filter",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 1,
+        "failed": 1,
+        "total": 2,
+        "time_seconds": 23.2,
+        "tokens": 50235,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response lists Alex's expense approval.",
+          "passed": true,
+          "evidence": "response.md: \"2. Alex (alex@acme.example): expense approval, 11 days, past due. On Mar 2 Alex said, 'I'll approve your expense by Wednesday.'\""
+        },
+        {
+          "text": "The response does not list Jordan, whose last message from Jamie was 3 days ago, as quiet for more than a week.",
+          "passed": false,
+          "evidence": "response.md opens with \"Two people have been quiet on you for more than a week:\" and lists \"1. Jordan ... contract signature, 14 days\". This counts from Feb 27 instead of Jamie's last nudge on Mar 10, which was 3 days ago."
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 0.9879,
+        "stddev": 0.0454,
+        "min": 0.83,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 70.5,
+        "stddev": 29.0466,
+        "min": 13.6,
+        "max": 103.3
+      },
+      "tokens": {
+        "mean": 60859.2857,
+        "stddev": 3640.382,
+        "min": 54480,
+        "max": 67152
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.865,
+        "stddev": 0.1621,
+        "min": 0.5,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 32.1,
+        "stddev": 15.2543,
+        "min": 10.7,
+        "max": 61.4
+      },
+      "tokens": {
+        "mean": 51833.5,
+        "stddev": 2404.5645,
+        "min": 49513,
+        "max": 57573
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.12",
+      "time_seconds": "+38.4",
+      "tokens": "+9026"
+    }
+  },
+  "notes": [
+    "With the skill, 88 of 89 checks passed; without it, 76 of 89. The biggest gains: due dates worked out from the send date (the baseline guessed 'Wed Mar 18' for 'get back to you' and gave no dates for soft promises), stated-vs-guessed labels on dates, days-quiet counted from the user's last nudge, and asking for one view returning only that view.",
+    "Six cases passed in both setups (urgent, combined views, 7-day window, drafts, Telegram, no source), so they don't show what the skill adds. They need stricter checks, such as Ravi's rubric being due now, Chloe's proposal not being urgent, and the NDA, room booking and cc'd promise being left out.",
+    "A repeated skill error: three runs promoted the phone call with Sam to Done on the strength of 'as discussed'. The skill should keep promises kept off email (calls, in person) at 'probably done' unless the other person confirms.",
+    "Smaller skill errors: a request that was asked and answered (Ivy's room booking) was counted as a closed promise; in the Needed view, an ASAP request and Ravi's rubric (due today, guessed date) were sorted after items due weeks later; the full report's 'this week' bucket included an item due Mar 31; 'last 5 days' was read as Mar 8-13, which is 6 days counting both ends.",
+    "A design question: on a later run the skill only scans from the last scan date, so open items an earlier scan missed (Alex's approval, the expense report) never get picked up.",
+    "Cost: the skill took about 38 seconds and 9,000 tokens more per run on average, mostly reading the skill and writing the tracker file."
+  ]
+}

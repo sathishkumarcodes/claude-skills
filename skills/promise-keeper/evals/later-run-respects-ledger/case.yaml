@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: later-run-respects-ledger
+expected_outcome: |
+  Rescans from about Mar 5 (last scan Mar 6 with a day of overlap), keeps the user's dropped and done items as they are, merges rather than duplicates, adds new items and records the new scan date.
+context:
+  scaffold_script: place-files.sh

@@ -1,0 +1,47 @@
+{
+  "name": "Taylor",
+  "type": "personal_chat",
+  "id": 5551234,
+  "messages": [
+    {
+      "id": 1,
+      "type": "message",
+      "date": "2026-03-11T19:00:00",
+      "from": "Jamie Rivera",
+      "from_id": "user1234",
+      "text": "I'll send you the apartment checklist tonight"
+    },
+    {
+      "id": 2,
+      "type": "message",
+      "date": "2026-03-11T19:05:00",
+      "from": "Taylor",
+      "from_id": "user9876",
+      "text": "Perfect. I'll book the cabin for the 21st"
+    },
+    {
+      "id": 3,
+      "type": "message",
+      "date": "2026-03-12T08:00:00",
+      "from": "Taylor",
+      "from_id": "user9876",
+      "text": "Can you bring the speaker on Saturday?"
+    },
+    {
+      "id": 4,
+      "type": "message",
+      "date": "2026-03-12T08:10:00",
+      "from": "Jamie Rivera",
+      "from_id": "user1234",
+      "text": "Yep, will bring it"
+    },
+    {
+      "id": 5,
+      "type": "message",
+      "date": "2026-03-12T08:11:00",
+      "from": "Jamie Rivera",
+      "from_id": "user1234",
+      "text": "lol we should hang more"
+    }
+  ]
+}

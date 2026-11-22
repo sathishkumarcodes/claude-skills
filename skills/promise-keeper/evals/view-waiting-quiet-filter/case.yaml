@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: view-waiting-quiet-filter
+expected_outcome: |
+  Waiting view filtered to items quiet 7+ days: Alex only.
+context:
+  scaffold_script: place-files.sh
