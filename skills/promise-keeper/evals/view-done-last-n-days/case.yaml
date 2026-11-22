@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: view-done-last-n-days
+expected_outcome: |
+  Items closed Mar 8-13: the team wiki (Mar 10) and the Q4 recap (Mar 12), with closed-on dates and a count. Older closures are left out.
+context:
+  scaffold_script: place-files.sh

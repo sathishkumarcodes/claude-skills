@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: view-urgent
+expected_outcome: |
+  Only urgent items, each with a one-line reason: the overdue Priya deck, Leo's review (overdue and chased), the overdue roadmap doc, Grace's ASAP request and Tom's portfolio before tomorrow's phone screen. Non-urgent and waiting items are left out.
+context:
+  scaffold_script: place-files.sh

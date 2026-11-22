@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: pasted-slack-text
+expected_outcome: |
+  Works from the pasted text alone. The OKR draft is done; the hiring plan is open with an inferred due date of Mon Mar 16; Grace's budget numbers are a waiting item.

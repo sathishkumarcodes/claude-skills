@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: no-source-available
+expected_outcome: |
+  No email, chat or notes are available, so it lists no promises, suggests connecting a source and offers to scan pasted or uploaded text.

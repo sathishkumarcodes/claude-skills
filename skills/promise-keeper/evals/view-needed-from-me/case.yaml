@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: view-needed-from-me
+expected_outcome: |
+  Only the Needed from me view: Jamie's open promises plus open requests asked of Jamie, overdue first, including the standup action item. Waiting items and done items are left out.
+context:
+  scaffold_script: place-files.sh

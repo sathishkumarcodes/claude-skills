@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: resolves-due-dates
+expected_outcome: |
+  Each promise's due date is resolved from the date the message was sent, and labeled stated or inferred.
+context:
+  scaffold_script: place-files.sh

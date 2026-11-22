@@ -37,8 +37,11 @@ for name in "${names[@]}"; do
   fi
 
   rm -f "dist/$name.zip"
-  # Only the skill files go in the ZIP; the folder's README is for people.
-  (cd skills && zip -qr "../dist/$name.zip" "$name" -x "$name/README.md")
+  # Only the skill files go in the ZIP. The README is for people, and tests
+  # and eval results are for development, so they stay out.
+  (cd skills && zip -qr "../dist/$name.zip" "$name" \
+    -x "$name/README.md" "$name/EVALS.md" "$name/evals/*" "$name/evals-src/*" \
+       "$name/eval-results/*" "$name/evals-answer-key.json" "$name/trigger-evals.json")
   echo "✓ $name → dist/$name.zip"
 done
 

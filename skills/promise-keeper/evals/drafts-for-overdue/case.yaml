@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: drafts-for-overdue
+expected_outcome: |
+  Drafts for the overdue items (Priya's deck, Leo's review), using deliver, renegotiate or release approaches. Nothing is sent.
+context:
+  scaffold_script: place-files.sh

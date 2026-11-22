@@ -10,6 +10,7 @@ when the skill is loaded.
 | --- | --- | --- |
 | [jira](skills/jira/) | `/jira` | Create, edit, comment on, assign, transition, link, search and summarize Jira issues; manage sprints; break features into stories |
 | [no-ai-slop](skills/no-ai-slop/) | automatic, or `/no-ai-slop` | Edit drafts into sharper, more human writing in the writer's own voice, or flag AI-slop patterns without rewriting |
+| [promise-keeper](skills/promise-keeper/) | automatic, or "run promise keeper" | Find promises you made in email, chat and meeting notes, track requests waiting on you and replies you're waiting on, and flag what's overdue or urgent |
 
 ## Installing a skill in Claude
 
@@ -46,6 +47,7 @@ To update a skill, delete the old one in Claude and upload the new ZIP.
 ```
 skills/<name>/SKILL.md     the skill itself (what Claude reads)
 skills/<name>/README.md    setup and examples (for people; not uploaded)
+skills/<name>/evals/       test cases, if the skill has them (not uploaded)
 templates/skill/           starting point for new skills
 scripts/package.sh         validates and zips skills into dist/
 ```
